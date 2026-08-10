@@ -1,0 +1,20 @@
+attribute vec4 a_Position;
+attribute vec4 a_Normal;
+
+uniform mat4 u_ModelMatrix;
+uniform mat4 u_MvpMatrix;
+uniform mat4 u_NormalMatrix;
+
+varying vec3 v_Position;
+varying vec3 v_Normal;
+varying vec4 v_Color;
+
+void main() {
+    vec4 color = vec4(0.41, 0.87, 0.93, 1.0);
+
+    gl_Position = u_MvpMatrix * a_Position;
+
+    v_Position = vec3(u_ModelMatrix * a_Position);
+    v_Normal = normalize(vec3(u_NormalMatrix * a_Normal));
+    v_Color = color;
+}
