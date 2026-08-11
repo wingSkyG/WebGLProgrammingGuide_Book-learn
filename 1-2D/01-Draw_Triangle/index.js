@@ -1,6 +1,6 @@
 import vertexSource from "./shader/vertex_shader.vert";
 import fragmentSource from "./shader/fragment_shader.frag";
-import initShader from "../initShader";
+import { initShader } from "../../lib/utils";
 
 render();
 
@@ -18,7 +18,11 @@ function render() {
     return;
   }
 
-  const program = initShader(gl, vertexSource, fragmentSource);
+  let isShaderInitialized = initShader(gl, vertexSource, fragmentSource);
+  if (!isShaderInitialized) {
+    console.log("Failed to intialize shaders");
+    return;
+  }
 
   let vertices = new Float32Array([0.0, 0.5, -0.5, -0.5, 0.5, -0.5]);
 
@@ -35,7 +39,7 @@ function render() {
   // 3.写入数据到缓冲区对象
   gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-  let a_Position = gl.getAttribLocation(program, "a_Position");
+  let a_Position = gl.getAttribLocation(gl.program, "a_Position");
   if (a_Position < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
@@ -47,7 +51,7 @@ function render() {
 
   gl.enableVertexAttribArray(a_Position);
 
-  let u_FragColor = gl.getUniformLocation(program, "u_FragColor");
+  let u_FragColor = gl.getUniformLocation(gl.program, "u_FragColor");
   if (u_FragColor < 0) {
     console.log("Failed to get the storage location of u_FragColor");
     return;

@@ -117,8 +117,8 @@ function initTextures(gl, vertexCnt) {
   image1.onload = function () {
     loadTexture(gl, vertexCnt, texture1, u_Sampler1, image1, 1);
   }
-  image0.src = "../../resources/sky.jpg";
-  image1.src = "../../resources/circle.gif";
+  image0.src = "../../resources/image/sky.JPG";
+  image1.src = "../../resources/image/circle.gif";
 
   return true;
 }
